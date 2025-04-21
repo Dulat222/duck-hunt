@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+	<style type="text/css">
+		body{
+			margin: 0;
+		}
+		.main{
+			background: url(background.jpg);
+			background-size: 100% 100%;
+			height: 953px;
+			width: 1920px;
+		}
+		
+		.shotblock{
+			background: black;
+			height: 100px;
+			width: 200px;
+			position: absolute;
+			top: 700px;
+			left: 200px;
+		}
+		.hitblock{
+			background: black;
+			height: 100px;
+			width: 500px;
+			position: absolute;
+			top: 700px;
+			left: 600px;
+			display: flex;
+		}
+		.scoreblock{
+			background: black;
+			height: 100px;
+			width: 200px;
+			position: absolute;
+			top: 700px;
+			left: 1400px;
+		}
+		.duck{ 
+			position: absolute;
+			top: 0px;
+			left: 0px;
+			height: 200px;
+			width: 200px; 
+			transition: 3s;
+		}
+		.start{
+			position: absolute;
+			top: 200px;
+			left: 800px;
+		}
+		.again{
+			position: absolute;
+			left: 800px;
+			top: 200px;
+			display: none;
+			height: 100px;
+			width: 200px;
+			background: #ff00ea;
+		}
+		.finalstats{
+			background: black;
+			height: 899px;
+			width: 1731px;
+
+		}
+	</style>
+</head>
+<body>
+<div class="finalstats">
+	<button class="again">Начать заново</button>
+	<h1 class="finalbullets" style="position: absolute; top: 300px; left: 700px; display: none; color: white;">Количество оставшихся пуль: <span class="fb">0</span></h1>
+	<h1 class="finalhits" style="position: absolute; top: 350px; left: 700px; display: none; color: white;">Количество попаданий: <span class="fh"></span></h1>
+	<h1 class="finalscore" style="position: absolute; top: 400px; left: 700px; display: none; color: white;">Очки: <span class="fs"></span></h1>
+
+	<h1 class="lose" style="font-size: 50px; position: absolute; top: 300px; left: 700px; display: none; color: white;">ТЫ ЛОХ</h1>
+<div class="main">
+	<div class="area">
+		
+	</div>
+
+	<div class="shotblock">
+		<img src="bullet.png" class="bullet" style="height: 30px; width: 30px; margin-left: 15px;">
+		<img src="bullet.png" class="bullet" style="height: 30px; width: 30px;">
+		<img src="bullet.png" class="bullet" style="height: 30px; width: 30px;">
+		<img src="bullet.png" class="bullet" style="height: 30px; width: 30px;">
+		<img src="bullet.png" class="bullet" style="height: 30px; width: 30px;">
+		<img src="bullet.png" class="bullet" style="height: 30px; width: 30px;">
+		<img src="bullet.png" class="bullet" style="height: 30px; width: 30px;">
+		<img src="bullet.png" class="bullet" style="height: 30px; width: 30px;">
+		<img src="bullet.png" class="bullet" style="height: 30px; width: 30px;">
+		<img src="bullet.png" class="bullet" style="height: 30px; width: 30px;">
+		<h1 style="color: white; position: absolute; top: 45px; left: 50px;">SHOT</h1>
+	</div>
+	<div class="hitblock">
+		<img src="miniduck.png" class="miniduck1" style="height: 30px; width: 30px; display: none;">
+		<img src="miniduck.png" class="miniduck2" style="height: 30px; width: 30px; display: none;">
+		<img src="miniduck.png" class="miniduck3" style="height: 30px; width: 30px; display: none;">
+		<img src="miniduck.png" class="miniduck4" style="height: 30px; width: 30px; display: none;">
+		<img src="miniduck.png" class="miniduck5" style="height: 30px; width: 30px; display: none;">
+		<img src="miniduck.png" class="miniduck6" style="height: 30px; width: 30px; display: none;">
+		<h1 style="color: white; position: absolute; top: 20px; left: 0px;">HIT</h1>
+	</div>
+	<div class="scoreblock">
+		<h1 style="color: white; position: absolute; top: 40px; left: 40px;">SCORE</h1>
+		<span class="score" style="color: white; font-size: 50px; position: absolute; top: 0px; left: 25px;">000000</span>
+	</div>
+	
+ <button class="start" style="height: 30px; width: 90px; background: #fabf2a; color:;">Начать игру</button>
+ 
+
+
+	 
+
+
+</div>
+</div>
+<script type="text/javascript">
+	let againbtn = document.querySelector(".again")
+	let startbtn = document.querySelector(".start")
+	let duck = document.querySelector(".duck")
+	let main = document.querySelector(".main")
+	let bullets = document.querySelectorAll(".bullet")
+	let area = document.querySelector('.area')
+	let score = 0
+	let shoot = 0
+	let scoreonscr = document.querySelector('.score')
+	let left1 = -300
+	let left2 = -300
+	let left3 = -300
+	let left4 = -300
+	let left5 = -300
+	let left6 = -300
+	let bullet = 10
+	let hit = 0
+
+	
+	
+	 function createCharacter(x,y){
+            let duck = document.createElement("img");
+            area.appendChild(duck);
+            duck.classList.add("duck");
+            duck.src = "duck.gif"
+            duck.style.top = x + "px";
+            duck.style.left = y + "px";	
+            return duck; 
+        }
+
+    let duck1 = createCharacter(0,-300)
+    let duck2 = createCharacter(100,-300)
+    let duck3 = createCharacter(200,-300)
+    let duck4 = createCharacter(150,-300)
+    let duck5 = createCharacter(50,-300)
+    let duck6 = createCharacter(250,-300)
+
+    function fly1(){
+    	left1 = left1 + 350
+    	duck1.style.left = left1 + 'px'
+    	if(left1 > 2100){
+    		duck1.remove()
+    		
+    	}
+    }
+    function fly2(){
+    	left2 = left2 + 400
+    	duck2.style.left = left2 + 'px'
+    	if(left2 > 2100){
+    		duck2.remove()
+    	}
+    }
+    function fly3(){
+    	left3 = left3 + 300
+    	duck3.style.left = left3 + 'px'
+    	if(left3 > 2100){
+    		duck3.remove()
+    	}
+    }
+    function fly4(){
+    	left4 = left4 + 400
+    	duck4.style.left = left4 + 'px'
+    	if(left4 > 2100){
+    		duck4.remove()
+    	}
+    }
+    function fly5(){
+    	left5 = left5 + 450
+    	duck5.style.left = left5 + 'px'
+    	if(left5 > 2100){
+    		duck5.remove()
+    	}
+    }
+    function fly6(){
+    	left6 = left6 + 500
+    	duck6.style.left = left6 + 'px'
+    	if(left6 > 2100){
+    		duck6.remove()
+    		
+    	}
+    }
+    function level2(){
+    	setInterval(fly4, 1000)
+    	setInterval(fly5, 1000)
+    	setInterval(fly6, 1000)
+    }
+    startbtn.onclick = function(){
+    	setInterval(fly1, 1000)
+ 		setInterval(fly2, 1000)
+    	setInterval(fly3, 1000)
+    	setTimeout(level2, 6000)
+    	startbtn.style.display = 'none'
+    }
+    
+    
+
+    duck1.onclick = function(){
+    	duck1.remove()
+    	hit = hit + 1
+    	score = score + 1000
+    	scoreonscr.innerHTML = score
+    	document.querySelector('.miniduck1').style.display = 'block'
+    	
+    }
+    duck2.onclick = function(){
+    	duck2.remove()
+    	hit = hit + 1
+    	score = score + 1000
+    	scoreonscr.innerHTML = score
+    	document.querySelector('.miniduck2').style.display = 'block'
+     
+    }
+    duck3.onclick = function(){
+    	duck3.remove()
+    	hit = hit + 1
+    	score = score + 1000
+    	scoreonscr.innerHTML = score
+    	document.querySelector('.miniduck3').style.display = 'block'
+    	 
+    }
+    duck4.onclick = function(){
+    	duck4.remove()
+    	hit = hit + 1
+    	score = score + 1000
+    	scoreonscr.innerHTML = score
+    	document.querySelector('.miniduck4').style.display = 'block'
+    	 
+    }
+    duck5.onclick = function(){
+    	duck5.remove()
+    	hit = hit + 1
+    	score = score + 1000
+    	scoreonscr.innerHTML = score
+    	document.querySelector('.miniduck5').style.display = 'block'
+    	 
+    }
+    duck6.onclick = function(){
+    	duck6.remove()
+    	hit = hit + 1
+    	score = score + 1000
+    	scoreonscr.innerHTML = score
+    	document.querySelector('.miniduck6').style.display = 'block'
+    	 
+    }
+
+
+    main.onclick = function(){
+    	if(shoot<bullets.length){
+    		for(let i =0;i<=bullets.length;i++){
+    			bullets[shoot].style.display = "none"
+    		}
+    	}
+    	
+    	shoot = shoot + 1
+    	bullet = bullet - 1
+
+    	if(bullet == 0){
+    		alert("ТЫ ПРОИГРАЛ!!!")
+    		document.querySelector(".main").style.display = 'none'
+    		document.querySelector(".lose").style.display = 'block'
+
+
+    	}
+    	if(score == 6000){
+    		alert("Ты Выйграл!")
+    		document.querySelector(".main").style.display = 'none'
+    		document.querySelector(".finalbullets").style.display = 'block'
+    		document.querySelector(".finalhits").style.display = 'block'
+    		document.querySelector(".finalscore").style.display = 'block'
+    		document.querySelector(".fb").innerHTML = bullet
+    		document.querySelector(".fh").innerHTML = hit
+    		document.querySelector(".fs").innerHTML = score
+    		document.querySelector(".again").style.display = 'block'
+    		
+
+    	}
+    }
+
+    againbtn.onclick = function(){
+    	window.location.reload()
+    }
+
+
+    
+
+
+</script>
+
+
+
+
+</body>
+</html>
